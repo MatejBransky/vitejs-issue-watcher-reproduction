@@ -1,9 +1,9 @@
 import React from "react";
-import useSWR from "swr";
+import { useQuery } from "react-query";
 import { Comment, CommentType } from "./Comment";
 
 export const Post: React.FC<{ id: string }> = ({ id }) => {
-  const { data: post, /*isValidating: isPostValidating*/ } = useSWR<PostType>(
+  const { data: post /*isValidating: isPostValidating*/ } = useQuery<PostType>(
     `https://jsonplaceholder.typicode.com/posts/${id}`,
     {
       onSuccess(data) {
@@ -11,7 +11,7 @@ export const Post: React.FC<{ id: string }> = ({ id }) => {
       },
     }
   );
-  const { data: comments, /*isValidating: areCommentsValidating*/ } = useSWR<
+  const { data: comments /*isValidating: areCommentsValidating*/ } = useQuery<
     CommentType[]
   >(`https://jsonplaceholder.typicode.com/comments?postId=${id}`, {
     onSuccess(data) {
